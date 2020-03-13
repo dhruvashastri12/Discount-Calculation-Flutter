@@ -82,7 +82,7 @@ class _CalcBodyState extends State<CalcBody> {
                     setState(() {
                       payableAmount = double.parse(_itemEditController.text) -
                           double.parse(_discountEditController.text);
-                      print('total Flat: $payableAmount');
+                      
                     });
                     _itemEditController.clear();
                     _discountEditController.clear();
@@ -97,13 +97,13 @@ class _CalcBodyState extends State<CalcBody> {
                 onPressed: () {
                   double cuttingPrice = double.parse(_itemEditController.text) *
                       (double.parse(_discountEditController.text) / 100);
-                  print('Cutting Price: $cuttingPrice');
+                  
                   if (!_itemEditController.text.contains("-") &&
                       !_discountEditController.text.contains("-")) {
                     setState(() {
                       payableAmount =
                           double.parse(_itemEditController.text) - cuttingPrice;
-                      print('Total Payable Amount: $payableAmount');
+                      
                     });
                     _itemEditController.clear();
                     _discountEditController.clear();
