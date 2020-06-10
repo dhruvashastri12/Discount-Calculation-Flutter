@@ -18,13 +18,10 @@ class DiscCalculation extends StatefulWidget {
 }
 
 class _DiscCalculationState extends State<DiscCalculation> {
-  // final Color scaffoldColor = Color(0Xff8A7FED);
+  
   final Color scaffoldColor = Color(0Xff594F4F);
-  // final Color scaffoldColor = Color(0Xff594F4F);
-
-  // final Color appbarColor = Color(0XffA4E898);
   final Color appbarColor = Color(0Xff594F4F);
-  // final Color appbarColor = Color(0Xff594F4F);
+  
 
   @override
   Widget build(BuildContext context) {
@@ -116,8 +113,6 @@ class _CalcBodyState extends State<CalcBody> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Card(
-            // color: Colors.white,
-            // color: Color(0Xff547980),
             color: Color(0Xff45ADA8),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
@@ -210,7 +205,6 @@ class _CalcBodyState extends State<CalcBody> {
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: Card(
-            // color: Color(0XffFF8c94),
             color: Color(0Xff45ADA8),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
