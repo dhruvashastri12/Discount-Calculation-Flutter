@@ -18,8 +18,10 @@ class DiscCalculation extends StatefulWidget {
 }
 
 class _DiscCalculationState extends State<DiscCalculation> {
-  final Color scaffoldColor = Color(0Xff8A7FED);
-  final Color appbarColor = Color(0XffA4E898);
+  
+  final Color scaffoldColor = Color(0Xff594F4F);
+  final Color appbarColor = Color(0Xff594F4F);
+  
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class _DiscCalculationState extends State<DiscCalculation> {
       backgroundColor: scaffoldColor,
       appBar: AppBar(
         backgroundColor: appbarColor,
-        title: Text('Discount Calculator', style: TextStyle(color: Colors.black87),),
+        title: Text('Discount Calculator', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),),
       ),
       body: Container(
         child: CalcBody(),
@@ -111,7 +113,7 @@ class _CalcBodyState extends State<CalcBody> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Card(
-            color: Colors.white,
+            color: Color(0Xff45ADA8),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
             child: Padding(
@@ -123,7 +125,7 @@ class _CalcBodyState extends State<CalcBody> {
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
-                        icon: Icon(Icons.cancel, color: Colors.grey[400]),
+                        icon: Icon(Icons.cancel, color: Colors.grey[700]),
                         onPressed: () {
                           _itemEditController.clear();
                           payableAmount = 0.0;
@@ -179,7 +181,7 @@ class _CalcBodyState extends State<CalcBody> {
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
-                        icon: Icon(Icons.cancel, color: Colors.grey[400]),
+                        icon: Icon(Icons.cancel, color: Colors.grey[700]),
                         onPressed: () {
                           _discountEditController.clear();
                           payableAmount = 0.0;
@@ -203,7 +205,7 @@ class _CalcBodyState extends State<CalcBody> {
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: Card(
-            color: Colors.white,
+            color: Color(0Xff45ADA8),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
             child: Padding(
