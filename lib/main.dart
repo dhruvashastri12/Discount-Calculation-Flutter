@@ -19,8 +19,10 @@ class DiscCalculation extends StatefulWidget {
 
 class _DiscCalculationState extends State<DiscCalculation> {
   
-  final Color scaffoldColor = Color(0Xff594F4F);
-  final Color appbarColor = Color(0Xff594F4F);
+  // final Color scaffoldColor = Color(0Xff594F4F);
+  final Color scaffoldColor = Color(262834);
+  // final Color appbarColor = Color(0Xff594F4F);
+  final Color appbarColor = Color(262834);
   
 
   @override
@@ -30,6 +32,13 @@ class _DiscCalculationState extends State<DiscCalculation> {
       appBar: AppBar(
         backgroundColor: appbarColor,
         title: Text('Discount Calculator', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),),
+        bottom: PreferredSize(
+          child: Container(
+            color: Color(0Xff45ADA8),
+            height: 1.0,
+          ),
+        preferredSize: Size.fromHeight(0.0)),
+   
       ),
       body: Container(
         child: CalcBody(),
@@ -133,6 +142,7 @@ class _CalcBodyState extends State<CalcBody> {
                           FocusScope.of(context).requestFocus(FocusNode());
                         },
                       ),
+                      focusedBorder:OutlineInputBorder(borderSide: BorderSide(color: Colors.black, width: 1.0),),
                       border: OutlineInputBorder(),
                       labelText: 'Enter Item Price',
                     ),
@@ -189,6 +199,7 @@ class _CalcBodyState extends State<CalcBody> {
                           FocusScope.of(context).requestFocus(FocusNode());
                         },
                       ),
+                      focusedBorder:OutlineInputBorder(borderSide: BorderSide(color: Colors.black, width: 1.0),),                      
                       border: OutlineInputBorder(),
                       labelText: 'Enter Discount',
                     ),
