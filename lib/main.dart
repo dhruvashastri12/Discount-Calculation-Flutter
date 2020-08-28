@@ -129,7 +129,9 @@ class _CalcBodyState extends State<CalcBody> {
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: <Widget>[
+                  // Item Price TextField Widget
                   TextField(
+                    cursorColor: textColor,
                     controller: _itemEditController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
@@ -137,19 +139,24 @@ class _CalcBodyState extends State<CalcBody> {
                         icon: Icon(Icons.cancel, color: Colors.grey[700]),
                         onPressed: () {
                           _itemEditController.clear();
-                          payableAmount = 0.0;
-                          savingAmount = '0.0';
+                          setState(() {
+                            payableAmount = 0.0;
+                            savingAmount = '0.0';                          
+                          });
                           FocusScope.of(context).requestFocus(FocusNode());
                         },
                       ),
                       focusedBorder:OutlineInputBorder(borderSide: BorderSide(color: Colors.black, width: 1.0),),
                       border: OutlineInputBorder(),
                       labelText: 'Enter Item Price',
+                      labelStyle: TextStyle(color: textColor)
                     ),
                   ),
+                  // Discount type radio buttons
                   new Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      // Flat discount radio button
                       new Radio(
                         value: 0,
                         activeColor: Colors.black87,
@@ -167,6 +174,8 @@ class _CalcBodyState extends State<CalcBody> {
                         'Flat Amount',
                         style: new TextStyle(fontSize: 16.0, color: textColor),
                       ),
+
+                      // Percentage discount radio button
                       new Radio(
                         value: 1,
                         activeColor: Colors.black,
@@ -186,7 +195,10 @@ class _CalcBodyState extends State<CalcBody> {
                       ),
                     ],
                   ),
+
+                  // Discount Amount TextField Widget
                   TextField(
+                    cursorColor: textColor,
                     controller: _discountEditController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
@@ -194,14 +206,17 @@ class _CalcBodyState extends State<CalcBody> {
                         icon: Icon(Icons.cancel, color: Colors.grey[700]),
                         onPressed: () {
                           _discountEditController.clear();
-                          payableAmount = 0.0;
-                          savingAmount = '0.0';
+                          setState(() {
+                            payableAmount = 0.0;
+                            savingAmount = '0.0';                            
+                          });
                           FocusScope.of(context).requestFocus(FocusNode());
                         },
                       ),
                       focusedBorder:OutlineInputBorder(borderSide: BorderSide(color: Colors.black, width: 1.0),),                      
                       border: OutlineInputBorder(),
                       labelText: 'Enter Discount',
+                      labelStyle: TextStyle(color: textColor)
                     ),
                   ),
                 ],
@@ -212,6 +227,7 @@ class _CalcBodyState extends State<CalcBody> {
         SizedBox(
           height: 5.0,
         ),
+
         // Card 2 to display data
         Padding(
           padding: const EdgeInsets.all(10.0),
@@ -223,6 +239,7 @@ class _CalcBodyState extends State<CalcBody> {
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: <Widget>[
+                  // Final Payable Amount Text Display
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -246,6 +263,8 @@ class _CalcBodyState extends State<CalcBody> {
                   SizedBox(
                     height: 8.0,
                   ),
+
+                  // Saved Amount after discount Text Display
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
