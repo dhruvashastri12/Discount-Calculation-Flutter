@@ -1,4 +1,4 @@
-package com.example.discount_calc
+package com.dhruvashastri12.discount_calc
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
