@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' as Foundation;
 
 void main() => runApp(MyApp());
 
@@ -9,6 +10,7 @@ class MyApp extends StatelessWidget {
       title: 'Discount Calculator',
       home: DiscCalculation(),
     );
+    
   }
 }
 
@@ -72,6 +74,14 @@ class _CalcBodyState extends State<CalcBody> {
     selectedRadio = 0;
     _itemEditController.addListener(calculateDiscount);
     _discountEditController.addListener(calculateDiscount);
+
+      if(Foundation.kDebugMode) {
+        print("App in debug mode");
+      }else if(Foundation.kProfileMode){
+        print("App in profile mode");
+      }else{
+        print("App in release mode");
+      }
   }
 
   // Changes the selected value on 'onChanged' click on each radio button
