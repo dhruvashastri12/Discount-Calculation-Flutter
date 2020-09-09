@@ -77,10 +77,10 @@ class _CalcBodyState extends State<CalcBody> {
 
       if(Foundation.kDebugMode) {
         print("App in debug mode");
-      }else if(Foundation.kProfileMode){
-        print("App in profile mode");
-      }else{
+      }else if(Foundation.kReleaseMode){
         print("App in release mode");
+      }else{
+        print("App in profile mode");
       }
   }
 
