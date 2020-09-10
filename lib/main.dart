@@ -75,12 +75,16 @@ class _CalcBodyState extends State<CalcBody> {
     _itemEditController.addListener(calculateDiscount);
     _discountEditController.addListener(calculateDiscount);
 
-      if(Foundation.kDebugMode) {
-        print("App in debug mode");
-      }else if(Foundation.kProfileMode){
-        print("App in profile mode");
-      }else{
-        print("App in release mode");
+      try {
+        if(Foundation.kDebugMode) {
+          print("App in debug mode");
+        }else if(Foundation.kReleaseMode){
+          print("App in release mode");
+        }else{
+          print("App in profile mode");
+        }
+      } on Exception catch (e) {
+            e.toString();
       }
   }
 
