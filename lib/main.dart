@@ -21,9 +21,7 @@ class DiscCalculation extends StatefulWidget {
 
 class _DiscCalculationState extends State<DiscCalculation> {
   
-  // final Color scaffoldColor = Color(0Xff594F4F);
   final Color scaffoldColor = Color(262834);
-  // final Color appbarColor = Color(0Xff594F4F);
   final Color appbarColor = Color(0Xff5a91a0);
   
 
@@ -56,6 +54,7 @@ class CalcBody extends StatefulWidget {
 
 class _CalcBodyState extends State<CalcBody> {
   int selectedRadio;
+  bool discountValueValidator;
   double payableAmount = 0.0;
   String savingAmount = '0.0';
   
@@ -73,6 +72,7 @@ class _CalcBodyState extends State<CalcBody> {
   void initState() {
     super.initState();
     selectedRadio = 0;
+    discountValueValidator = false;
     _itemEditController.addListener(calculateDiscount);
     _discountEditController.addListener(calculateDiscount);
 
@@ -98,33 +98,40 @@ class _CalcBodyState extends State<CalcBody> {
 
   // Business Logic to calculate discount
   calculateDiscount() {
-    if (_itemEditController.text.length > 0 &&
-        _discountEditController.text.length > 0 && (int.parse(_discountEditController.text)) < 100) {
-      if (!_itemEditController.text.contains("-") &&
-          !_discountEditController.text.contains("-")) {
-        if (selectedRadio == 0) {
-          double cuttingPrice = double.parse(_itemEditController.text) *
-              (double.parse(_discountEditController.text) / 100);
-          setState(() {
-            payableAmount =
-                double.parse(_itemEditController.text) - cuttingPrice;
-            savingAmount = cuttingPrice.toStringAsFixed(2);
-            print('Cutting Price: $cuttingPrice');
-            print('Saving Amount: $savingAmount');
-            print('Percentage Discount: $payableAmount');
-          });
-        } 
-        else {
-          setState(() {
-            payableAmount = double.parse(_itemEditController.text) -
-                double.parse(_discountEditController.text);
-            savingAmount = _discountEditController.text;
-            print('Flat Discount: $payableAmount');
-          });
+    if (_itemEditController.text.length > 0 && _discountEditController.text.length > 0 ){
+        if (int.parse(_discountEditController.text) < 100) {
+          discountValueValidator = false;
+          print(discountValueValidator.toString());
+          if (!_itemEditController.text.contains("-") &&
+              !_discountEditController.text.contains("-")) {
+              
+            if (selectedRadio == 0) {
+              double cuttingPrice = double.parse(_itemEditController.text) *
+                  (double.parse(_discountEditController.text) / 100);
+              setState(() {
+                payableAmount =
+                    double.parse(_itemEditController.text) - cuttingPrice;
+                savingAmount = cuttingPrice.toStringAsFixed(2);
+                print('Cutting Price: $cuttingPrice');
+                print('Saving Amount: $savingAmount');
+                print('Percentage Discount: $payableAmount');
+              });
+            } 
+            else {
+              setState(() {
+                payableAmount = double.parse(_itemEditController.text) -
+                    double.parse(_discountEditController.text);
+                savingAmount = _discountEditController.text;
+                print('Flat Discount: $payableAmount');
+              });
+            }
+          } else {
+            Scaffold.of(context).showSnackBar(snackbar); // check this, snackbar shows on wrong scenario
+          }
+        }else{
+          discountValueValidator = true;
+          print(discountValueValidator.toString());
         }
-      } else {
-        Scaffold.of(context).showSnackBar(snackbar); // check this, snackbar shows on wrong scenario
-      }
     }
   }
 
@@ -240,7 +247,8 @@ class _CalcBodyState extends State<CalcBody> {
                       focusedBorder:OutlineInputBorder(borderSide: BorderSide(color: Colors.white60, width: 1.0),),                      
                       enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white60, width: 1.0),),
                       labelText: 'Enter Discount',
-                      labelStyle: TextStyle(color: textColor, fontSize: 17.0, fontWeight: FontWeight.w400)
+                      labelStyle: TextStyle(color: textColor, fontSize: 17.0, fontWeight: FontWeight.w400),
+                      errorText: discountValueValidator ? 'Please enter discount value < 100%' : null
                     ),
                   ),
                 ],
