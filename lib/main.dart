@@ -56,7 +56,8 @@ class _CalcBodyState extends State<CalcBody> {
   int selectedRadio;
   bool discountValueValidator;
   double payableAmount = 0.0;
-  String savingAmount = '0.0';
+  // String roundedPayableAmount = '0.0';
+  double savingAmount = 0.0;
   
   final Color textColor = Colors.white60;
   final Color cardColor = Color(0Xff5a91a0);
@@ -75,6 +76,24 @@ class _CalcBodyState extends State<CalcBody> {
     discountValueValidator = false;
     _itemEditController.addListener(calculateDiscount);
     _discountEditController.addListener(calculateDiscount);
+    _discountEditController.addListener((){
+      setState(() {
+        print("Second text field: ${_discountEditController.text}");
+
+        if (_discountEditController.text.length > 0 ){
+          print('discountValueValidator text length');
+          if (int.parse(_discountEditController.text) < 100) {
+            discountValueValidator = false;
+            print(discountValueValidator.toString());
+          }else{
+            discountValueValidator = true;
+            print(discountValueValidator.toString());
+          }
+        }else{
+          print('discountValueValidator text length zero');
+        }        
+      });
+    });
 
       try {
         if(Foundation.kDebugMode) {
@@ -99,19 +118,14 @@ class _CalcBodyState extends State<CalcBody> {
   // Business Logic to calculate discount
   calculateDiscount() {
     if (_itemEditController.text.length > 0 && _discountEditController.text.length > 0 ){
-        if (int.parse(_discountEditController.text) < 100) {
-          discountValueValidator = false;
-          print(discountValueValidator.toString());
-          if (!_itemEditController.text.contains("-") &&
-              !_discountEditController.text.contains("-")) {
-              
+          if ((!_itemEditController.text.contains("-")) && (!_discountEditController.text.contains("-"))) {              
             if (selectedRadio == 0) {
               double cuttingPrice = double.parse(_itemEditController.text) *
                   (double.parse(_discountEditController.text) / 100);
               setState(() {
-                payableAmount =
-                    double.parse(_itemEditController.text) - cuttingPrice;
-                savingAmount = cuttingPrice.toStringAsFixed(2);
+                payableAmount = (double.parse(_itemEditController.text) - cuttingPrice).roundToDouble();
+                savingAmount = cuttingPrice.roundToDouble();
+                // roundedPayableAmount = payableAmount.toStringAsFixed(2);
                 print('Cutting Price: $cuttingPrice');
                 print('Saving Amount: $savingAmount');
                 print('Percentage Discount: $payableAmount');
@@ -119,19 +133,16 @@ class _CalcBodyState extends State<CalcBody> {
             } 
             else {
               setState(() {
-                payableAmount = double.parse(_itemEditController.text) -
-                    double.parse(_discountEditController.text);
-                savingAmount = _discountEditController.text;
+                payableAmount = (double.parse(_itemEditController.text) -
+                    double.parse(_discountEditController.text)).roundToDouble();
+                savingAmount = double.parse(_discountEditController.text).roundToDouble();
+                
                 print('Flat Discount: $payableAmount');
               });
             }
           } else {
             Scaffold.of(context).showSnackBar(snackbar); // check this, snackbar shows on wrong scenario
           }
-        }else{
-          discountValueValidator = true;
-          print(discountValueValidator.toString());
-        }
     }
   }
 
@@ -212,7 +223,7 @@ class _CalcBodyState extends State<CalcBody> {
                           _itemEditController.clear();
                           setState(() {
                             payableAmount = 0.0;
-                            savingAmount = '0.0';                          
+                            savingAmount = 0.0;                          
                           });
                           FocusScope.of(context).requestFocus(FocusNode());
                         },
@@ -239,16 +250,17 @@ class _CalcBodyState extends State<CalcBody> {
                           _discountEditController.clear();
                           setState(() {
                             payableAmount = 0.0;
-                            savingAmount = '0.0';                            
+                            savingAmount = 0.0;                            
                           });
                           FocusScope.of(context).requestFocus(FocusNode());
                         },
                       ),
-                      focusedBorder:OutlineInputBorder(borderSide: BorderSide(color: Colors.white60, width: 1.0),),                      
+                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white60, width: 1.0),),                      
                       enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white60, width: 1.0),),
                       labelText: 'Enter Discount',
                       labelStyle: TextStyle(color: textColor, fontSize: 17.0, fontWeight: FontWeight.w400),
-                      errorText: discountValueValidator ? 'Please enter discount value < 100%' : null
+                      errorText: discountValueValidator ? 'Please enter discount value < 100%' : null,
+                      focusedErrorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white60, width: 1.0),),
                     ),
                   ),
                 ],
