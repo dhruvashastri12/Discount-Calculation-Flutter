@@ -283,49 +283,51 @@ class _CalcBodyState extends State<CalcBody> {
               child: Column(
                 children: <Widget>[
                   // Saved Amount after discount Text Display
-                  Column(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        'You Save',
-                        style: TextStyle(fontSize: 22.0, color: textColor),
-                        textAlign: TextAlign.left,
-                      ),
-                      // Expanded(
-                        Text(
-                          '$savingAmount Rs',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 26.0,
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.right,
-                        ),
-                      // ),
-                    ],
-                  ),
+                  ReusableDataDisplayWidget(displayLabelTxt: 'You Save', textColor: textColor, labelFontSize: 22.0, amntFontSize: 26.0, amount: savingAmount),
+                  // Column(
+                  //   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: <Widget>[
+                  //     Text(
+                  //       'You Save',
+                  //       style: TextStyle(fontSize: 22.0, color: textColor),
+                  //       textAlign: TextAlign.left,
+                  //     ),
+                  //     // Expanded(
+                  //       Text(
+                  //         '$savingAmount Rs',
+                  //         style: TextStyle(
+                  //             color: Colors.black,
+                  //             fontSize: 26.0,
+                  //             fontWeight: FontWeight.bold),
+                  //         textAlign: TextAlign.right,
+                  //       ),
+                  //     // ),
+                  //   ],
+                  // ),
 
                   SizedBox(height:7.0),
                   // Final Payable Amount Text Display
-                  Column(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        'Payable Amount',
-                        style: TextStyle(fontSize: 25.0, color: textColor),
-                        textAlign: TextAlign.left,
-                      ),
-                      // Expanded(
-                        Text(
-                          '$payableAmount Rs',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 30.0,
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.right,
-                        ),
-                      // ),
-                    ],
-                  ),
+                  ReusableDataDisplayWidget(displayLabelTxt: 'Payable Amount', textColor: textColor, labelFontSize: 25.0, amntFontSize: 30.0, amount: payableAmount),
+                  // Column(
+                  //   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: <Widget>[
+                  //     Text(
+                  //       'Payable Amount',
+                  //       style: TextStyle(fontSize: 25.0, color: textColor),
+                  //       textAlign: TextAlign.left,
+                  //     ),
+                  //     // Expanded(
+                  //       Text(
+                  //         '$payableAmount Rs',
+                  //         style: TextStyle(
+                  //             color: Colors.black,
+                  //             fontSize: 30.0,
+                  //             fontWeight: FontWeight.bold),
+                  //         textAlign: TextAlign.right,
+                  //       ),
+                  //     // ),
+                  //   ],
+                  // ),
                   SizedBox(
                     height: 8.0,
                   ),
@@ -337,4 +339,40 @@ class _CalcBodyState extends State<CalcBody> {
       ],
     );
   }
+}
+
+class ReusableDataDisplayWidget extends StatelessWidget{
+  ReusableDataDisplayWidget({ @required this.displayLabelTxt, @required this.textColor, @required this.labelFontSize, @required this.amntFontSize, @required this.amount});
+
+  final Color textColor;
+  final double amount;
+  final String displayLabelTxt;
+  final double labelFontSize;
+  final double amntFontSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        displayLabelTxt,
+                        style: TextStyle(fontSize: labelFontSize, color: textColor),
+                        textAlign: TextAlign.left,
+                      ),
+                      // Expanded(
+                        Text(
+                          '$amount Rs',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: amntFontSize,
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.right,
+                        ),
+                      // ),
+                    ],
+                  );
+
+  }
+
 }
