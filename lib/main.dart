@@ -284,50 +284,9 @@ class _CalcBodyState extends State<CalcBody> {
                 children: <Widget>[
                   // Saved Amount after discount Text Display
                   ReusableDataDisplayWidget(displayLabelTxt: 'You Save', textColor: textColor, labelFontSize: 22.0, amntFontSize: 26.0, amount: savingAmount),
-                  // Column(
-                  //   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: <Widget>[
-                  //     Text(
-                  //       'You Save',
-                  //       style: TextStyle(fontSize: 22.0, color: textColor),
-                  //       textAlign: TextAlign.left,
-                  //     ),
-                  //     // Expanded(
-                  //       Text(
-                  //         '$savingAmount Rs',
-                  //         style: TextStyle(
-                  //             color: Colors.black,
-                  //             fontSize: 26.0,
-                  //             fontWeight: FontWeight.bold),
-                  //         textAlign: TextAlign.right,
-                  //       ),
-                  //     // ),
-                  //   ],
-                  // ),
-
                   SizedBox(height:7.0),
                   // Final Payable Amount Text Display
                   ReusableDataDisplayWidget(displayLabelTxt: 'Payable Amount', textColor: textColor, labelFontSize: 25.0, amntFontSize: 30.0, amount: payableAmount),
-                  // Column(
-                  //   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: <Widget>[
-                  //     Text(
-                  //       'Payable Amount',
-                  //       style: TextStyle(fontSize: 25.0, color: textColor),
-                  //       textAlign: TextAlign.left,
-                  //     ),
-                  //     // Expanded(
-                  //       Text(
-                  //         '$payableAmount Rs',
-                  //         style: TextStyle(
-                  //             color: Colors.black,
-                  //             fontSize: 30.0,
-                  //             fontWeight: FontWeight.bold),
-                  //         textAlign: TextAlign.right,
-                  //       ),
-                  //     // ),
-                  //   ],
-                  // ),
                   SizedBox(
                     height: 8.0,
                   ),
