@@ -1,3 +1,5 @@
+import 'package:discount_calc/common/strings.dart';
+import 'package:discount_calc/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' as Foundation;
 
@@ -7,8 +9,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Discount Calculator',
-      home: DiscCalculation(),
+      title: Strings.appName,
+      home: HomePage(),
     );
   }
 }
@@ -178,8 +180,11 @@ class _CalcBodyState extends State<CalcBody> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         // Percentage discount radio button
-                        ReusableRadioBtn(selectedRadio: selectedRadio, discountEditController: _discountEditController),
-                        ReusableRadioBtnLabel(radioBtnLabel: 'Percentage',textColor: textColor),
+                        ReusableRadioBtn(
+                            selectedRadio: selectedRadio,
+                            discountEditController: _discountEditController),
+                        ReusableRadioBtnLabel(
+                            radioBtnLabel: 'Percentage', textColor: textColor),
 
                         // Flat discount radio button
                         new Radio(
@@ -195,7 +200,8 @@ class _CalcBodyState extends State<CalcBody> {
                             }
                           },
                         ),
-                        ReusableRadioBtnLabel(radioBtnLabel: 'Flat Amount', textColor: textColor),
+                        ReusableRadioBtnLabel(
+                            radioBtnLabel: 'Flat Amount', textColor: textColor),
                       ],
                     ),
                   ),
@@ -298,20 +304,24 @@ class _CalcBodyState extends State<CalcBody> {
               child: Column(
                 children: <Widget>[
                   // Saved Amount after discount Text Display
-                  ReusableDataDisplayWidget(
-                      displayLabelTxt: 'You Save',
-                      textColor: textColor,
-                      labelFontSize: 22.0,
-                      amntFontSize: 26.0,
-                      amount: savingAmount),
+                  //TODO START
+                  // ReusableDataDisplayWidget(
+                  //     displayLabelTxt: 'You Save',
+                  //     textColor: textColor,
+                  //     labelFontSize: 22.0,
+                  //     amntFontSize: 26.0,
+                  //     amount: savingAmount),
+                  //TODO END
                   SizedBox(height: 7.0),
                   // Final Payable Amount Text Display
-                  ReusableDataDisplayWidget(
-                      displayLabelTxt: 'Payable Amount',
-                      textColor: textColor,
-                      labelFontSize: 25.0,
-                      amntFontSize: 30.0,
-                      amount: payableAmount),
+                  //TODO START
+                  // ReusableDataDisplayWidget(
+                  //     displayLabelTxt: 'Payable Amount',
+                  //     textColor: textColor,
+                  //     labelFontSize: 25.0,
+                  //     amntFontSize: 30.0,
+                  //     amount: payableAmount),
+                  //TODO END
                   SizedBox(
                     height: 8.0,
                   ),
@@ -330,7 +340,8 @@ class ReusableRadioBtn extends StatelessWidget {
     Key key,
     @required this.selectedRadio,
     @required TextEditingController discountEditController,
-  }) : _discountEditController = discountEditController, super(key: key);
+  })  : _discountEditController = discountEditController,
+        super(key: key);
 
   final int selectedRadio;
   final TextEditingController _discountEditController;
@@ -343,9 +354,9 @@ class ReusableRadioBtn extends StatelessWidget {
       groupValue: selectedRadio,
       onChanged: (val) {
         print("Radio $val");
-        setSelectedRadio(val);
+        // setSelectedRadio(val);
         if (!(_discountEditController.text == null)) {
-          calculateDiscount();
+          // calculateDiscount();
           FocusScope.of(context).requestFocus(FocusNode());
         }
       },
@@ -354,7 +365,8 @@ class ReusableRadioBtn extends StatelessWidget {
 }
 
 class ReusableRadioBtnLabel extends StatelessWidget {
-  const ReusableRadioBtnLabel({@required this.radioBtnLabel, @required this.textColor});
+  const ReusableRadioBtnLabel(
+      {@required this.radioBtnLabel, @required this.textColor});
 
   final String radioBtnLabel;
   final Color textColor;
@@ -364,48 +376,7 @@ class ReusableRadioBtnLabel extends StatelessWidget {
     return new Text(
       radioBtnLabel,
       style: new TextStyle(
-          fontSize: 17.0,
-          fontWeight: FontWeight.w400,
-          color: textColor),
-    );
-  }
-}
-
-class ReusableDataDisplayWidget extends StatelessWidget {
-  ReusableDataDisplayWidget(
-      {@required this.displayLabelTxt,
-      @required this.textColor,
-      @required this.labelFontSize,
-      @required this.amntFontSize,
-      @required this.amount});
-
-  final Color textColor;
-  final double amount;
-  final String displayLabelTxt;
-  final double labelFontSize;
-  final double amntFontSize;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Text(
-          displayLabelTxt,
-          style: TextStyle(fontSize: labelFontSize, color: textColor),
-          textAlign: TextAlign.left,
-        ),
-        // Expanded(
-        Text(
-          '$amount Rs',
-          style: TextStyle(
-              color: Colors.black,
-              fontSize: amntFontSize,
-              fontWeight: FontWeight.bold),
-          textAlign: TextAlign.right,
-        ),
-        // ),
-      ],
+          fontSize: 17.0, fontWeight: FontWeight.w400, color: textColor),
     );
   }
 }
