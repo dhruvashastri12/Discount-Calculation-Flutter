@@ -18,13 +18,15 @@ class _CalculatorBodyState extends State<CalculatorBody> {
   double savingAmount = 0.0;
 
   int selectedRadio;
+  bool discountValueError;
 
   @override
   void initState() {
     super.initState();
+    discountValueError = false;
     selectedRadio = 0;
-    itemPriceController.addListener(_calculatDiscount);
-    itemDiscountController.addListener(_calculatDiscount);
+    itemPriceController.addListener(_calculateDiscount);
+    itemDiscountController.addListener(_calculateDiscount);
   }
 
   @override
@@ -61,20 +63,6 @@ class _CalculatorBodyState extends State<CalculatorBody> {
                             });
                           },
                         )
-                        // DCRadioButton(
-                        //   radioBtnLabel: 'Percentage',
-                        //   selectedRadio: 0,
-                        //   onRadioChanged: (val) {
-                        //     // setSelectedRadio(val);
-                        //   },
-                        // ),
-                        // DCRadioButton(
-                        //   radioBtnLabel: 'Flat Amount',
-                        //   selectedRadio: 1,
-                        //   onRadioChanged: (val) {
-                        //     // setSelectedRadio(val);
-                        //   },
-                        // ),
                       ],
                     ),
                   ),
@@ -92,6 +80,7 @@ class _CalculatorBodyState extends State<CalculatorBody> {
                       });
                       FocusScope.of(context).requestFocus(FocusNode());
                     },
+                    discountValueError: false
                   ),
                   SizedBox(height: 15.0),
                   DCTextField(
@@ -106,8 +95,23 @@ class _CalculatorBodyState extends State<CalculatorBody> {
                       });
                       FocusScope.of(context).requestFocus(FocusNode());
                     },
+                    discountValueError: false
                   ),
-                  SizedBox(height: 15.0),
+                ],
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 10.0),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Card(
+            color: mainColor,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+            child: Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Column(
+                children: <Widget>[
                   DCResultField(
                       displayLabelTxt: 'You save',
                       labelFontSize: 22.0,
@@ -128,7 +132,7 @@ class _CalculatorBodyState extends State<CalculatorBody> {
     );
   }
 
-  _calculatDiscount() {
+  _calculateDiscount() {
     double itemPrice = double.parse(
         itemPriceController.text != null && itemPriceController.text.isNotEmpty
             ? itemPriceController.text
@@ -139,7 +143,7 @@ class _CalculatorBodyState extends State<CalculatorBody> {
         : '0');
 
     if (!isValidNumber(itemPrice)) return;
-    if (!isValidDiscountNumber(discount)) return;
+    if (!isValidDiscountNumber(discount)){discountValueError = true;} 
 
     if (selectedRadio == 0) {
       double cuttingPrice = (itemPrice * discount) / 100;
@@ -166,8 +170,7 @@ class _CalculatorBodyState extends State<CalculatorBody> {
   setSelectedRadio(int val) {
     setState(() {
       selectedRadio = val;
-      _calculatDiscount();
+      _calculateDiscount();
     });
   }
-
 }

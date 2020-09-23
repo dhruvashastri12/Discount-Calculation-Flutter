@@ -4,15 +4,13 @@ class DCRadioButton extends StatefulWidget {
   final int selectedRadio;
   final String label_1;
   final String label_2;
-  // final String radioBtnLabel;
-
+  
   final Function onRadioChanged;
 
   DCRadioButton(
       {@required this.selectedRadio,
       @required this.label_1,
       @required this.label_2,
-      // @required this.radioBtnLabel,
       @required this.onRadioChanged});
 
   @override
@@ -29,7 +27,6 @@ class _DCRadioButtonState extends State<DCRadioButton> {
 
   @override
   Widget build(BuildContext context) {
-    // from blog https://medium.com/@hrishikesh.deshmukh445/working-with-reusable-radio-button-widgets-in-flutter-1ee1b912916f
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
       // Percentage radio button
       Radio(
@@ -62,22 +59,3 @@ class _DCRadioButtonState extends State<DCRadioButton> {
     ]);
   }
 }
-
-// Note: madeby dhs
-// Row(
-//       children: <Widget>[
-//         Radio(
-//             value: widget.selectedRadio,
-//             activeColor: Colors.white60,
-//             groupValue: widget.selectedRadio,
-//             onChanged: widget.onRadioChanged ?? () {}
-//         ),
-//         Text(
-//           widget.radioBtnLabel,
-//           style: new TextStyle(
-//               fontSize: 17.0,
-//               fontWeight: FontWeight.w400,
-//               color: Colors.white60),
-//         )
-//       ],
-//     );

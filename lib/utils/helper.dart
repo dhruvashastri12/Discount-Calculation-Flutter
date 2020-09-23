@@ -4,4 +4,5 @@ bool isValidNumber(double value) {
 
 bool isValidDiscountNumber(double value) {
   return value != null && value > 0 && value < 101;
+  print('isValidDiscount: $value');
 }
