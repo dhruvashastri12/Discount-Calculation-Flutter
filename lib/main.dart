@@ -118,10 +118,8 @@ class _CalcBodyState extends State<CalcBody> {
 
   // Business Logic to calculate discount
   calculateDiscount() {
-    if (_itemEditController.text.length > 0 &&
-        _discountEditController.text.length > 0) {
-      if ((!_itemEditController.text.contains("-")) &&
-          (!_discountEditController.text.contains("-"))) {
+    if (_itemEditController.text.length > 0 &&_discountEditController.text.length > 0) {
+      if ((!_itemEditController.text.contains("-")) && (!_discountEditController.text.contains("-"))) {
         if (selectedRadio == 0) {
           double cuttingPrice = double.parse(_itemEditController.text) *
               (double.parse(_discountEditController.text) / 100);

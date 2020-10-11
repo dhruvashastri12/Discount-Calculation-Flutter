@@ -5,14 +5,17 @@ class DCTextField extends StatelessWidget {
   final Function onClearPressed;
   final String label;
   final int maxLength;
+  final int selectedTFKey;
   final bool discountValueError;
 
   DCTextField(
-      {this.controller, this.onClearPressed, this.label, this.maxLength, this.discountValueError});
+      {this.controller, this.onClearPressed, this.label, this.maxLength, this.selectedTFKey, this.discountValueError});
 
   @override
   Widget build(BuildContext context) {
+    print('DC_TF discountvalueerror: $discountValueError');
     return TextField(
+      key: ValueKey(selectedTFKey),
       cursorColor: Colors.white60,
       controller: controller,
       style: TextStyle(
@@ -35,9 +38,12 @@ class DCTextField extends StatelessWidget {
           color: Colors.white60,
           fontSize: 17.0,
         ),
-        errorText: discountValueError
+        errorText: discountValueError && selectedTFKey == 1 
             ? 'Please enter discount value < 100%'
             : null,
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.white60, width: 1.0),
+        ),
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.white60, width: 1.0),
         ),

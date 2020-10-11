@@ -1,8 +1,11 @@
 bool isValidNumber(double value) {
-  return value != null && value > 0;
+  print('helper isValidNumber: $value');
+  return value != null && value > 0 && !value.isNegative;
+
 }
 
 bool isValidDiscountNumber(double value) {
-  return value != null && value > 0 && value < 101;
-  print('isValidDiscount: $value');
+  print('helper isValidDiscount: $value');
+  return value != null && value > 0 && value < 101 && !value.isNegative;
+  
 }
