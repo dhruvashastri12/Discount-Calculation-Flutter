@@ -27,6 +27,7 @@ class _CalculatorBodyState extends State<CalculatorBody> {
     selectedRadio = 0;
     itemPriceController.addListener(_calculateDiscount);
     itemDiscountController.addListener(_calculateDiscount);
+
   }
 
   @override
@@ -68,6 +69,7 @@ class _CalculatorBodyState extends State<CalculatorBody> {
                   ),
                   SizedBox(height: 10.0),
                   DCTextField(
+                    discountValueError: false,
                     label: 'Item Price',
                     controller: itemPriceController,
                     maxLength: 10,
@@ -78,14 +80,14 @@ class _CalculatorBodyState extends State<CalculatorBody> {
                         payableAmount = 0.0;
                         savingAmount = 0.0;
                       });
-                      FocusScope.of(context).requestFocus(FocusNode());
                     },
-                    discountValueError: false
                   ),
                   SizedBox(height: 15.0),
                   DCTextField(
+                    discountValueError: discountValueError,
                     label: 'Enter Discount DC',
                     controller: itemDiscountController,
+                    maxLength: 2,
                     onClearPressed: () {
                       print('ON CLEAR CLICKED discount');
                       itemDiscountController.clear();
@@ -93,21 +95,19 @@ class _CalculatorBodyState extends State<CalculatorBody> {
                         payableAmount = 0.0;
                         savingAmount = 0.0;
                       });
-                      FocusScope.of(context).requestFocus(FocusNode());
                     },
-                    discountValueError: false
                   ),
                 ],
               ),
             ),
           ),
         ),
-        SizedBox(height: 10.0),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Card(
             color: mainColor,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
             child: Padding(
               padding: EdgeInsets.all(20.0),
               child: Column(
@@ -142,28 +142,35 @@ class _CalculatorBodyState extends State<CalculatorBody> {
         ? itemDiscountController.text
         : '0');
 
-    if (!isValidNumber(itemPrice)) return;
-    if (!isValidDiscountNumber(discount)){discountValueError = true;} 
+    if ((isValidNumber(itemPrice))) {
+      if ((isValidDiscountNumber(discount))) {
+        if (selectedRadio == 0) {
+          double cuttingPrice = (itemPrice * discount) / 100;
 
-    if (selectedRadio == 0) {
-      double cuttingPrice = (itemPrice * discount) / 100;
+          setState(() {
+            payableAmount = (itemPrice - cuttingPrice).roundToDouble();
+            savingAmount = cuttingPrice.roundToDouble();
 
-      setState(() {
-        payableAmount = (itemPrice - cuttingPrice).roundToDouble();
-        savingAmount = cuttingPrice.roundToDouble();
+            print('Cutting Price: $cuttingPrice');
+            print('Saving Amount: $savingAmount');
+            print('Percentage Discount: $payableAmount');
+          });
+        } else {
+          setState(() {
+            payableAmount = (itemPrice - discount).roundToDouble();
+            savingAmount = discount.roundToDouble();
 
-        print('Cutting Price: $cuttingPrice');
-        print('Saving Amount: $savingAmount');
-        print('Percentage Discount: $payableAmount');
-      });
-    } else {
-      setState(() {
-        payableAmount = (itemPrice - discount).roundToDouble();
-        savingAmount = discount.roundToDouble();
-
-        print('Flat Discount: $payableAmount');
-      });
-    }
+            print('Flat Discount: $payableAmount');
+          });
+        }
+      }else if(discount.toString().length >= 3){
+        setState(() {
+            discountValueError = true;
+          print(' else isValidDiscountNumber $discountValueError');
+        });
+      }
+ 
+      }    
   }
 
   // // Changes the selected value on 'onChanged' click on each radio button
@@ -171,6 +178,7 @@ class _CalculatorBodyState extends State<CalculatorBody> {
     setState(() {
       selectedRadio = val;
       _calculateDiscount();
+      print('Radio seletion changed $val');
     });
   }
 }
