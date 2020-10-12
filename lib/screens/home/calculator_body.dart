@@ -1,4 +1,5 @@
 import 'package:discount_calc/common/colors.dart';
+import 'package:discount_calc/common/strings.dart';
 import 'package:discount_calc/custom/dc_radiobutton.dart';
 import 'package:discount_calc/custom/dc_result.dart';
 import 'package:discount_calc/custom/dc_textfield.dart';
@@ -54,8 +55,8 @@ class _CalculatorBodyState extends State<CalculatorBody> {
                       children: <Widget>[
                         DCRadioButton(
                           // title: 'Best App development framework',
-                          label_1: 'Percentage',
-                          label_2: 'Flat Amount',
+                          label_1: Strings.radioLabelPerecent,
+                          label_2: Strings.radioLabelFlat,
                           selectedRadio: selectedRadio,
                           onRadioChanged: (int selectionValue) {
                             setState(() {
@@ -70,7 +71,7 @@ class _CalculatorBodyState extends State<CalculatorBody> {
                   SizedBox(height: 10.0),
                   DCTextField(
                     discountValueError: false,
-                    label: 'Item Price',
+                    label: Strings.TFLabelItemPrice,
                     controller: itemPriceController,
                     maxLength: 10,
                     onClearPressed: () {
@@ -84,10 +85,11 @@ class _CalculatorBodyState extends State<CalculatorBody> {
                   ),
                   SizedBox(height: 15.0),
                   DCTextField(
+                    // discountValueError: discountValueError ? discountValueError : false,
                     discountValueError: discountValueError,
-                    label: 'Enter Discount DC',
+                    label: Strings.TFLabelDiscount,
                     controller: itemDiscountController,
-                    maxLength: 2,
+                    // maxLength: 2,
                     onClearPressed: () {
                       print('ON CLEAR CLICKED discount');
                       itemDiscountController.clear();
@@ -113,13 +115,13 @@ class _CalculatorBodyState extends State<CalculatorBody> {
               child: Column(
                 children: <Widget>[
                   DCResultField(
-                      displayLabelTxt: 'You save',
+                      displayLabelTxt: Strings.resultLabelSave,
                       labelFontSize: 22.0,
                       amntFontSize: 26.0,
                       value: savingAmount),
                   SizedBox(height: 15.0),
                   DCResultField(
-                      displayLabelTxt: 'Payable Amount',
+                      displayLabelTxt: Strings.resultLabelPayable,
                       labelFontSize: 25.0,
                       amntFontSize: 30.0,
                       value: payableAmount)
@@ -148,24 +150,29 @@ class _CalculatorBodyState extends State<CalculatorBody> {
           double cuttingPrice = (itemPrice * discount) / 100;
 
           setState(() {
+            discountValueError = false;
             payableAmount = (itemPrice - cuttingPrice).roundToDouble();
             savingAmount = cuttingPrice.roundToDouble();
 
+            print(' if 0 isValidDiscountNumber $discountValueError');
             print('Cutting Price: $cuttingPrice');
             print('Saving Amount: $savingAmount');
             print('Percentage Discount: $payableAmount');
           });
         } else {
           setState(() {
+            discountValueError = false;
             payableAmount = (itemPrice - discount).roundToDouble();
             savingAmount = discount.roundToDouble();
 
+            print(' if 1 isValidDiscountNumber $discountValueError');
             print('Flat Discount: $payableAmount');
           });
         }
-      }else if(discount.toString().length >= 3){
+      }else if(discount >= 100){
         setState(() {
-            discountValueError = true;
+          // print('else discount length: $discount.toString().length');
+          discountValueError = true;
           print(' else isValidDiscountNumber $discountValueError');
         });
       }
